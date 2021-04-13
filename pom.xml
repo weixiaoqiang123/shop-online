@@ -11,6 +11,12 @@
     <artifactId>ShopOnline</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <modules>
+        <module>shop-bean</module>
+        <module>shop-interface</module>
+        <module>shop-util</module>
+    </modules>
+
     <!--  统一jar包和版本号管理 -->
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -94,6 +100,12 @@
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus</artifactId>
+                <version>${mybatis.plus.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
                 <version>${mybatis.plus.version}</version>
             </dependency>
 
