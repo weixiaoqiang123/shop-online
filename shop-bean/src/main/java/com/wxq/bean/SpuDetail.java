@@ -1,6 +1,8 @@
 package com.wxq.bean;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -15,7 +17,7 @@ import lombok.Data;
 @ApiModel("商品详情信息，通过mavenEditor插件编辑")
 public class SpuDetail {
 
-  @TableField("id")
+  @TableId(value = "id",type = IdType.AUTO)
   private Integer id;
 
   @TableField("spu_code")

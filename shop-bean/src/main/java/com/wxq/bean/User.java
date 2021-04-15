@@ -1,6 +1,8 @@
 package com.wxq.bean;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -17,7 +19,7 @@ import java.math.BigDecimal;
 @ApiModel(value = "user", description = "")
 public class User {
 
-  @TableField("id")
+  @TableId(value = "id",type = IdType.AUTO)
   @ApiModelProperty("id")
   private Integer id;
 
@@ -44,6 +46,10 @@ public class User {
   @TableField("methods")
   @ApiModelProperty("注册方式 0 邮箱 1 手机")
   private Integer method;
+
+  @TableField("is_delete")
+  @ApiModelProperty("是否注销: 0 未注销 1 注销")
+  private Integer isDelete;
 
   @TableField("name")
   @ApiModelProperty("真实姓名")

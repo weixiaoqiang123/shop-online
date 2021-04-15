@@ -1,10 +1,14 @@
 package com.wxq.bean;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+
+import java.util.List;
 
 /**
  * @author weixiaoqiang
@@ -15,7 +19,7 @@ import lombok.Data;
 @ApiModel("Province")
 public class Province {
 
-  @TableField("id")
+  @TableId(value = "id",type = IdType.AUTO)
   private Integer id;
 
   @TableField("name")
@@ -24,5 +28,5 @@ public class Province {
 
   @TableField(exist = false)
   @ApiModelProperty("市")
-  private City city;
+  private List<City> cityList;
 }

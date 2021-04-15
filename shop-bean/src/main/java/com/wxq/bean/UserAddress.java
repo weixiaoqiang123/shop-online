@@ -1,6 +1,8 @@
 package com.wxq.bean;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -15,7 +17,7 @@ import lombok.Data;
 @ApiModel(value = "userAddress", description = "")
 public class UserAddress {
 
-  @TableField("id")
+  @TableId(value = "id",type = IdType.AUTO)
   private Integer id;
 
   @TableField("account")
@@ -45,6 +47,10 @@ public class UserAddress {
   @TableField("town_id")
   @ApiModelProperty("镇id")
   private Integer townId;
+
+  @TableField("address")
+  @ApiModelProperty("详细地址")
+  private String address;
 
   @TableField("tag_code")
   @ApiModelProperty("地址标签")

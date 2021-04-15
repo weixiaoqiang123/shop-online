@@ -1,6 +1,8 @@
 package com.wxq.bean;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -18,7 +20,7 @@ import java.util.List;
 @ApiModel("spu")
 public class Spu {
 
-  @TableField("id")
+  @TableId(value = "id",type = IdType.AUTO)
   private Integer id;
 
   @TableField("spu_name")
@@ -48,6 +50,10 @@ public class Spu {
   @TableField("cate_code")
   @ApiModelProperty("分类编码")
   private String cateCode;
+
+  @TableField("business_cate_code")
+  @ApiModelProperty("商家分类编码")
+  private String businessCateCode;
 
   @TableField("image_path")
   @ApiModelProperty("商品封面图片路径")

@@ -1,10 +1,14 @@
 package com.wxq.bean;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+
+import java.util.List;
 
 /**
  * @author weixiaoqiang
@@ -15,7 +19,7 @@ import lombok.Data;
 @ApiModel("一级分类")
 public class Cate1 {
 
-  @TableField("id")
+  @TableId(value = "id",type = IdType.AUTO)
   private Integer id;
 
   @TableField("cate_name")
@@ -32,5 +36,5 @@ public class Cate1 {
 
   @TableField(exist = false)
   @ApiModelProperty("二级分类")
-  private Cate2 cate2;
+  private List<Cate2> cate2List;
 }
