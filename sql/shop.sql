@@ -61,7 +61,8 @@ create table business(
      business_name varchar(50),
      business_code varchar(32),
      account varchar(20),
-     address varchar(50)
+     address varchar(50),
+     is_delete int
 )character set utf8 collate utf8_general_ci;
 
 -- 商家分类表
@@ -186,7 +187,8 @@ create table cate(
     id int primary key AUTO_INCREMENT,
     cate_name varchar(20),
     cate_code varchar(32),
-    parent_cate_code varchar(32)
+    parent_cate_code varchar(32),
+    is_delete int
 )character set utf8 collate utf8_general_ci;
 
 -- 轮播图
@@ -272,20 +274,20 @@ values
 ;
 
 -- 商家表
-INSERT INTO business(business_name,business_code,account)
+INSERT INTO business(business_name,business_code,account, is_delete)
 VALUES
-('aaa', '029eab8cb8d540d9bf84d11c4d748bed', '12345683'),
-('bbb', '2b317694916146ef9f9a3df53ea3e045', '12345684'),
-('ccc', '4fed501a6e6b4164aa3245373e278492', '12345685'),
-('ddd', '1f90d4df6ccf42c2b6149f1a9048358f', '12345686'),
-('eee', 'f27b3fca330242f6b7b79ded55e1112a', '12345687'),
-('fff', '8b02b5141eac4d9fabf56bec14658ba7', '12345688'),
-('ggg', '911d9a8df91744e89f84cd973e7f822b', '12345689'),
-('hhh', '921059cae3ca49ca8f9d01a41c0039d8', '12345690'),
-('iii', 'd3e57d41bd1b4a9fb06e05e9563710a7', '12345691'),
-('jjj', 'fe7786e5b0db4818bdb976aeb3fa1c02', '12345692'),
-('kkk', '46104f15ae39403fafd2b60ad066d0f7', '12345693'),
-('lll', '1118a920159f4f819a358ac3d1e05c42', '12345694')
+('aaa', '029eab8cb8d540d9bf84d11c4d748bed', '12345683', 0),
+('bbb', '2b317694916146ef9f9a3df53ea3e045', '12345684', 0),
+('ccc', '4fed501a6e6b4164aa3245373e278492', '12345685', 0),
+('ddd', '1f90d4df6ccf42c2b6149f1a9048358f', '12345686', 0),
+('eee', 'f27b3fca330242f6b7b79ded55e1112a', '12345687', 0),
+('fff', '8b02b5141eac4d9fabf56bec14658ba7', '12345688', 0),
+('ggg', '911d9a8df91744e89f84cd973e7f822b', '12345689', 0),
+('hhh', '921059cae3ca49ca8f9d01a41c0039d8', '12345690', 0),
+('iii', 'd3e57d41bd1b4a9fb06e05e9563710a7', '12345691', 0),
+('jjj', 'fe7786e5b0db4818bdb976aeb3fa1c02', '12345692', 0),
+('kkk', '46104f15ae39403fafd2b60ad066d0f7', '12345693', 0),
+('lll', '1118a920159f4f819a358ac3d1e05c42', '12345694', 0)
 ;
 
 
@@ -301,18 +303,18 @@ $
 delimiter ;
 
 -- 分类表
-INSERT INTO cate(cate_name, cate_code, parent_cate_code)
+INSERT INTO cate(cate_name, cate_code, parent_cate_code, is_delete)
 VALUES
-('家用电器','271898818ab911eb8d69107b4420fb1c', '0'),
-('手机|运营商|数码','2b199e878ab911eb8d69107b4420fb1c', '0'),
-('电脑|办公','2e08fdf18ab911eb8d69107b4420fb1c', '0'),
-('家居|家具|厨具','30ec08238ab911eb8d69107b4420fb1c', '0'),
-('男装|女装|童装','3381352d8ab911eb8d69107b4420fb1c', '0'),
-('美妆|个护清洁','36415ad48ab911eb8d69107b4420fb1c', '0'),
-('女鞋|箱包|钟表','392a07888ab911eb8d69107b4420fb1c', '0'),
-('男鞋|运动|户外','3bc7ee268ab911eb8d69107b4420fb1c', '0'),
-('母婴|玩具乐器','3e7720d98ab911eb8d69107b4420fb1c', '0'),
-('食品|酒类|生鲜','412ac6898ab911eb8d69107b4420fb1c', '0'),
-('图书|文娱|教育','440795c08ab911eb8d69107b4420fb1c', '0'),
-('安装|维修|清洗','48fcf6f48ab911eb8d69107b4420fb1c', '0')
+('家用电器','271898818ab911eb8d69107b4420fb1c', '0', 0),
+('手机|运营商|数码','2b199e878ab911eb8d69107b4420fb1c', '0', 0),
+('电脑|办公','2e08fdf18ab911eb8d69107b4420fb1c', '0', 0),
+('家居|家具|厨具','30ec08238ab911eb8d69107b4420fb1c', '0', 0),
+('男装|女装|童装','3381352d8ab911eb8d69107b4420fb1c', '0', 0),
+('美妆|个护清洁','36415ad48ab911eb8d69107b4420fb1c', '0', 0),
+('女鞋|箱包|钟表','392a07888ab911eb8d69107b4420fb1c', '0', 0),
+('男鞋|运动|户外','3bc7ee268ab911eb8d69107b4420fb1c', '0', 0),
+('母婴|玩具乐器','3e7720d98ab911eb8d69107b4420fb1c', '0', 0),
+('食品|酒类|生鲜','412ac6898ab911eb8d69107b4420fb1c', '0', 0),
+('图书|文娱|教育','440795c08ab911eb8d69107b4420fb1c', '0', 0),
+('安装|维修|清洗','48fcf6f48ab911eb8d69107b4420fb1c', '0', 0)
 ;
