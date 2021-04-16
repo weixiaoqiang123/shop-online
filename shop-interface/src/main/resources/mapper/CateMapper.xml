@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wxq.shopinterface.mapper.CateMapper">
+
+    <resultMap id="baseMap" type="com.wxq.bean.Cate">
+        <id column="id" property="id"/>
+        <result column="cate_name" property="cateName"/>
+        <result column="cate_code" property="cateCode"/>
+        <result column="parent_cate_code" property="parentCateCode"/>
+    </resultMap>
+
+    <select id="findAll" resultMap="baseMap">
+        select id,cate_name,cate_code,parent_cate_code from cate
+    </select>
+</mapper>
