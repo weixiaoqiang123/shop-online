@@ -13,6 +13,8 @@ public interface ICateService {
 
   boolean update(Cate cate);
 
+  boolean logicDelete(String cateCode);
+
   boolean delete(String cateCode);
 
   Cate findById(String cateCode);
