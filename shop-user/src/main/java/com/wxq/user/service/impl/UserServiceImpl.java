@@ -29,6 +29,7 @@ public class UserServiceImpl implements IUserService {
     QueryWrapper<User> wrapper = new QueryWrapper<>();
     wrapper.eq("account", user.getAccount());
     wrapper.eq("role", user.getRole());
+    wrapper.eq("is_delete", 0);
     User userByDb = userMapper.selectOne(wrapper);
     if(userByDb == null){
       responseVo.setMsg("用户不存在");
