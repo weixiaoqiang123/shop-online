@@ -11,6 +11,7 @@
 
     <groupId>com.wxq.bean</groupId>
     <artifactId>shop-bean</artifactId>
+    <version>1.0-SNAPSHOT</version>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -25,14 +26,9 @@
         </dependency>
 
         <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-boot-starter</artifactId>
-        </dependency>
-
-        <!-- swagger -->
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger2</artifactId>
+            <groupId>com.wxq.util</groupId>
+            <artifactId>shop-util</artifactId>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
 </project>
