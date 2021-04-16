@@ -1,5 +1,5 @@
 drop database if exists shoponline;
-create database shoponline;
+create database shoponline character set utf8 collate utf8_general_ci;
 use shoponline;
 
 drop table if exists user;
@@ -19,9 +19,7 @@ drop table if exists attr_value;
 drop table if exists spu_attr;
 drop table if exists sku;
 drop table if exists sku_attr_value;
-drop table if exists root_cate;
-drop table if exists cate1;
-drop table if exists cate2;
+drop table if exists cate;
 drop table if exists banner;
 drop table if exists shop_cart;
 drop table if exists shop_cart_attr_value;
@@ -40,7 +38,7 @@ create table user(
      name varchar(10),
      head_img varchar(100),
      is_delete int
-);
+)character set utf8 collate utf8_general_ci;
 
 -- 用户收货地址表
 create table user_address(
@@ -54,7 +52,7 @@ create table user_address(
      county_id int,
      town_id int,
      tag_code varchar(32)
-);
+)character set utf8 collate utf8_general_ci;
 
 
 -- 商家表
@@ -64,7 +62,7 @@ create table business(
      business_code varchar(32),
      account varchar(20),
      address varchar(50)
-);
+)character set utf8 collate utf8_general_ci;
 
 -- 商家分类表
 create table business_cate(
@@ -72,34 +70,34 @@ create table business_cate(
     busiess_code varchar(32),
     cate_name varchar(10),
     cate_code varchar(32)
-);
+)character set utf8 collate utf8_general_ci;
 
 -- 省
 create table province(
     id int primary key AUTO_INCREMENT,
     name varchar(10)
-);
+)character set utf8 collate utf8_general_ci;
 
 -- 市
 create table city(
     id int primary key AUTO_INCREMENT,
     name varchar(10),
     province_id int
-);
+)character set utf8 collate utf8_general_ci;
 
 -- 县
 create table county(
     id int primary key AUTO_INCREMENT,
     name varchar(10),
     city_id int
-);
+)character set utf8 collate utf8_general_ci;
 
 -- 镇
 create table town(
     id int primary key AUTO_INCREMENT,
     name varchar(10),
     county_id int
-);
+)character set utf8 collate utf8_general_ci;
 
 -- 商品评论表
 create table comment(
@@ -111,7 +109,7 @@ create table comment(
     content varchar(500),
     comment_code varchar(32),
     comment_time datetime
-);
+)character set utf8 collate utf8_general_ci;
 
 
 -- spu
@@ -127,28 +125,28 @@ create table spu(
     cate_code varchar(32),
     business_cate_code varchar(32),
     image_path varchar(100)
-);
+)character set utf8 collate utf8_general_ci;
 
 -- spu详情信息
 create table spu_detail(
     id int primary key AUTO_INCREMENT,
     spu_code varchar(32),
     info varchar(100)
-);
+)character set utf8 collate utf8_general_ci;
 
 -- spu图片表
 create table spu_images(
     id int primary key AUTO_INCREMENT,
     spu_code varchar(32),
     image_path varchar(100)
-);
+)character set utf8 collate utf8_general_ci;
 
 -- 属性表
 create table attr(
     id int primary key AUTO_INCREMENT,
     name varchar(10),
     is_delete int
-);
+)character set utf8 collate utf8_general_ci;
 
 -- 属性值表
 create table attr_value(
@@ -156,14 +154,14 @@ create table attr_value(
     name varchar(50),
     attr_id int,
     is_delete int
-);
+)character set utf8 collate utf8_general_ci;
 
 -- spu属性关系表
 create table spu_attr(
     id int primary key AUTO_INCREMENT,
     spu_code varchar(32),
     attr_id int
-);
+)character set utf8 collate utf8_general_ci;
 
 -- sku
 create table sku(
@@ -173,7 +171,7 @@ create table sku(
     spu_code varchar(32),
     store int,
     image_path varchar(50)
-);
+)character set utf8 collate utf8_general_ci;
 
 -- sku属性、属性值关系表
 create table sku_attr_value(
@@ -181,37 +179,22 @@ create table sku_attr_value(
     sku_code varchar(32),
     attr_id int,
     value_id int
-);
+)character set utf8 collate utf8_general_ci;
 
--- 系统配置分类
-create table root_cate(
-    id int primary key AUTO_INCREMENT,
-    cate_name varchar(20),
-    cate_code varchar(32)
-);
-
--- 一级分类
-create table cate1(
+-- 分类
+create table cate(
     id int primary key AUTO_INCREMENT,
     cate_name varchar(20),
     cate_code varchar(32),
     parent_cate_code varchar(32)
-);
-
--- 二级分类
-create table cate2(
-    id int primary key AUTO_INCREMENT,
-    cate_name varchar(20),
-    cate_code varchar(32),
-    parent_cate_code varchar(32)
-);
+)character set utf8 collate utf8_general_ci;
 
 -- 轮播图
 create table banner(
     id int primary key AUTO_INCREMENT,
     path varchar(100),
     status int
-);
+)character set utf8 collate utf8_general_ci;
 
 -- 购物车
 create table shop_cart(
@@ -224,7 +207,7 @@ create table shop_cart(
     business_name varchar(50),
     business_code varchar(32),
     create_time datetime
-);
+)character set utf8 collate utf8_general_ci;
 
 -- 购物车商品属性、属性值关系
 create table shop_cart_attr_value(
@@ -232,7 +215,7 @@ create table shop_cart_attr_value(
     sku_code varchar(32),
     attr_id int,
     value_id int
-);
+)character set utf8 collate utf8_general_ci;
 
 -- 订单表
 create table shop_order(
@@ -244,7 +227,7 @@ create table shop_order(
     order_amount decimal(8,2),
     create_time datetime,
     create_by varchar(20)
-);
+)character set utf8 collate utf8_general_ci;
 
 -- 订单详情表
 create table order_details(
@@ -253,7 +236,7 @@ create table order_details(
     sku_code varchar(32),
     shop_num int,
     sku_amount decimal(8,2)
-);
+)character set utf8 collate utf8_general_ci;
 
 
 -- 测试值
@@ -315,21 +298,21 @@ select replace(UUID(), '-', '') into res;
 RETURN res;
 END
 $
+delimiter ;
 
--- 系统分类表
--- 一级分类
-INSERT INTO root_cate(cate_name, cate_code)
+-- 分类表
+INSERT INTO cate(cate_name, cate_code, parent_cate_code)
 VALUES
-('家用电器','271898818ab911eb8d69107b4420fb1c'),
-('手机|运营商|数码','2b199e878ab911eb8d69107b4420fb1c'),
-('电脑|办公','2e08fdf18ab911eb8d69107b4420fb1c'),
-('家居|家具|厨具','30ec08238ab911eb8d69107b4420fb1c'),
-('男装|女装|童装','3381352d8ab911eb8d69107b4420fb1c'),
-('美妆|个护清洁','36415ad48ab911eb8d69107b4420fb1c'),
-('女鞋|箱包|钟表','392a07888ab911eb8d69107b4420fb1c'),
-('男鞋|运动|户外','3bc7ee268ab911eb8d69107b4420fb1c'),
-('母婴|玩具乐器','3e7720d98ab911eb8d69107b4420fb1c'),
-('食品|酒类|生鲜','412ac6898ab911eb8d69107b4420fb1c'),
-('图书|文娱|教育','440795c08ab911eb8d69107b4420fb1c'),
-('安装|维修|清洗','48fcf6f48ab911eb8d69107b4420fb1c')
+('家用电器','271898818ab911eb8d69107b4420fb1c', '0'),
+('手机|运营商|数码','2b199e878ab911eb8d69107b4420fb1c', '0'),
+('电脑|办公','2e08fdf18ab911eb8d69107b4420fb1c', '0'),
+('家居|家具|厨具','30ec08238ab911eb8d69107b4420fb1c', '0'),
+('男装|女装|童装','3381352d8ab911eb8d69107b4420fb1c', '0'),
+('美妆|个护清洁','36415ad48ab911eb8d69107b4420fb1c', '0'),
+('女鞋|箱包|钟表','392a07888ab911eb8d69107b4420fb1c', '0'),
+('男鞋|运动|户外','3bc7ee268ab911eb8d69107b4420fb1c', '0'),
+('母婴|玩具乐器','3e7720d98ab911eb8d69107b4420fb1c', '0'),
+('食品|酒类|生鲜','412ac6898ab911eb8d69107b4420fb1c', '0'),
+('图书|文娱|教育','440795c08ab911eb8d69107b4420fb1c', '0'),
+('安装|维修|清洗','48fcf6f48ab911eb8d69107b4420fb1c', '0')
 ;
