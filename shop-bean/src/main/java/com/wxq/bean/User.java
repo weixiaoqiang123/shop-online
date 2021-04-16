@@ -25,7 +25,7 @@ public class User {
 
   @TableField("nickname")
   @ApiModelProperty("昵称")
-  private Integer nickname;
+  private String nickname;
 
   @TableField("password")
   @ApiModelProperty("密码，前端加密后传入")
@@ -43,7 +43,7 @@ public class User {
   @ApiModelProperty("角色 0 系统 1 商家 2 用户")
   private Integer role;
 
-  @TableField("methods")
+  @TableField("method")
   @ApiModelProperty("注册方式 0 邮箱 1 手机")
   private Integer method;
 
