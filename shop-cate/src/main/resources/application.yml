@@ -1,0 +1,15 @@
+server:
+  port: 8003
+
+spring:
+  profiles:
+    active: dev
+  # 表示使用开发环境配置文件 表示去nacos上找xxxx-dev.yml的配置文件
+    # active: dev
+
+# bus
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
