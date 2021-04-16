@@ -1,6 +1,6 @@
 spring:
   application:
-    name: shop-user
+    name: shop-cate
   cloud:
     nacos:
       # 服务注册中心
