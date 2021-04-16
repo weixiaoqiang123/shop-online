@@ -15,6 +15,8 @@
         <module>shop-interface</module>
         <module>shop-util</module>
         <module>shop-user</module>
+        <module>shop-cate</module>
+        <module>shop-business</module>
     </modules>
 
     <!--  统一jar包和版本号管理 -->
