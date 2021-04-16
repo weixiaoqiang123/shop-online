@@ -38,6 +38,10 @@ public class Business {
   @ApiModelProperty("商家地址")
   private String address;
 
+  @TableField("is_delete")
+  @ApiModelProperty("是否删除: 0 未删除 1 删除")
+  private Integer isDelete;
+
   @TableField(exist = false)
   @ApiModelProperty("商家下的分类")
   private List<BusinessCate> businessCateList;
