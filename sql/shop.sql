@@ -38,7 +38,8 @@ create table user(
      role int,
      method int,
      name varchar(10),
-     head_img varchar(100)
+     head_img varchar(100),
+     is_delete int
 );
 
 -- 用户收货地址表
@@ -124,6 +125,7 @@ create table spu(
     sale_price decimal(8,2),
     sale_num int,
     cate_code varchar(32),
+    business_cate_code varchar(32),
     image_path varchar(100)
 );
 
@@ -252,3 +254,82 @@ create table order_details(
     shop_num int,
     sku_amount decimal(8,2)
 );
+
+
+-- 测试值
+-- 用户表
+insert into user(nickname,name,password,balance,method,account,is_delete,role)
+values
+('wxq', 'wxq','e10adc3949ba59abbe56e057f20f883e', 100.0,1,18402895524, 0,2),
+('admin',NULL, '21232f297a57a5a743894a0e4a801fc3', NULL, NULL, 'admin', 0,0),
+('aaaa', 'aaaa', 'e10adc3949ba59abbe56e057f20f883e', 100.0,1, 12345671, 0, 2),
+('bbbb', 'bbbb', 'e10adc3949ba59abbe56e057f20f883e', 100.0,1, 12345672, 0, 2),
+('cccc', 'cccc', 'e10adc3949ba59abbe56e057f20f883e', 100.0,1, 12345673, 0, 2),
+('dddd', 'dddd', 'e10adc3949ba59abbe56e057f20f883e', 100.0,1, 12345674, 0, 2),
+('eeee', 'eeee', 'e10adc3949ba59abbe56e057f20f883e', 100.0,1, 12345675, 0, 2),
+('ffff', 'ffff', 'e10adc3949ba59abbe56e057f20f883e', 100.0,1, 12345677, 0, 2),
+('gggg', 'gggg', 'e10adc3949ba59abbe56e057f20f883e', 100.0,1, 12345678, 0, 2),
+('hhhh', 'hhhh', 'e10adc3949ba59abbe56e057f20f883e', 100.0,1, 12345679, 0, 2),
+('iiii', 'iiii', 'e10adc3949ba59abbe56e057f20f883e', 100.0,1, 12345680, 0, 2),
+('jjjj', 'jjjj', 'e10adc3949ba59abbe56e057f20f883e', 100.0,1, 12345681, 0, 2),
+('kkkk', 'kkkk', 'e10adc3949ba59abbe56e057f20f883e', 100.0,1, 12345682, 0, 2),
+
+('llll', 'llll', 'e10adc3949ba59abbe56e057f20f883e', 100.0,1, 12345683, 0, 1),
+('mmmm', 'mmmm', 'e10adc3949ba59abbe56e057f20f883e', 100.0,1, 12345684, 0, 1),
+('nnnn', 'nnnn', 'e10adc3949ba59abbe56e057f20f883e', 100.0,1, 12345685, 0, 1),
+('oooo', 'oooo', 'e10adc3949ba59abbe56e057f20f883e', 100.0,1, 12345686, 0, 1),
+('pppp', 'pppp', 'e10adc3949ba59abbe56e057f20f883e', 100.0,1, 12345687, 0, 1),
+('qqqq', 'qqqq', 'e10adc3949ba59abbe56e057f20f883e', 100.0,1, 12345688, 0, 1),
+('rrrr', 'rrrr', 'e10adc3949ba59abbe56e057f20f883e', 100.0,1, 12345689, 0, 1),
+('ssss', 'ssss', 'e10adc3949ba59abbe56e057f20f883e', 100.0,1, 12345690, 0, 1),
+('tttt', 'tttt', 'e10adc3949ba59abbe56e057f20f883e', 100.0,1, 12345691, 0, 1),
+('uuuu', 'uuuu', 'e10adc3949ba59abbe56e057f20f883e', 100.0,1, 12345692, 0, 1),
+('vvvv', 'vvvv', 'e10adc3949ba59abbe56e057f20f883e', 100.0,1, 12345693, 0, 1),
+('wwww', 'wwww', 'e10adc3949ba59abbe56e057f20f883e', 100.0,1, 12345694, 0, 1)
+;
+
+-- 商家表
+INSERT INTO business(business_name,business_code,account)
+VALUES
+('aaa', '029eab8cb8d540d9bf84d11c4d748bed', '12345683'),
+('bbb', '2b317694916146ef9f9a3df53ea3e045', '12345684'),
+('ccc', '4fed501a6e6b4164aa3245373e278492', '12345685'),
+('ddd', '1f90d4df6ccf42c2b6149f1a9048358f', '12345686'),
+('eee', 'f27b3fca330242f6b7b79ded55e1112a', '12345687'),
+('fff', '8b02b5141eac4d9fabf56bec14658ba7', '12345688'),
+('ggg', '911d9a8df91744e89f84cd973e7f822b', '12345689'),
+('hhh', '921059cae3ca49ca8f9d01a41c0039d8', '12345690'),
+('iii', 'd3e57d41bd1b4a9fb06e05e9563710a7', '12345691'),
+('jjj', 'fe7786e5b0db4818bdb976aeb3fa1c02', '12345692'),
+('kkk', '46104f15ae39403fafd2b60ad066d0f7', '12345693'),
+('lll', '1118a920159f4f819a358ac3d1e05c42', '12345694')
+;
+
+
+DROP FUNCTION IF EXISTS getCode;
+delimiter $
+CREATE FUNCTION getCode() returns varchar(32)
+BEGIN
+	DECLARE res VARCHAR(32);
+select replace(UUID(), '-', '') into res;
+RETURN res;
+END
+$
+
+-- 系统分类表
+-- 一级分类
+INSERT INTO root_cate(cate_name, cate_code)
+VALUES
+('家用电器','271898818ab911eb8d69107b4420fb1c'),
+('手机|运营商|数码','2b199e878ab911eb8d69107b4420fb1c'),
+('电脑|办公','2e08fdf18ab911eb8d69107b4420fb1c'),
+('家居|家具|厨具','30ec08238ab911eb8d69107b4420fb1c'),
+('男装|女装|童装','3381352d8ab911eb8d69107b4420fb1c'),
+('美妆|个护清洁','36415ad48ab911eb8d69107b4420fb1c'),
+('女鞋|箱包|钟表','392a07888ab911eb8d69107b4420fb1c'),
+('男鞋|运动|户外','3bc7ee268ab911eb8d69107b4420fb1c'),
+('母婴|玩具乐器','3e7720d98ab911eb8d69107b4420fb1c'),
+('食品|酒类|生鲜','412ac6898ab911eb8d69107b4420fb1c'),
+('图书|文娱|教育','440795c08ab911eb8d69107b4420fb1c'),
+('安装|维修|清洗','48fcf6f48ab911eb8d69107b4420fb1c')
+;
