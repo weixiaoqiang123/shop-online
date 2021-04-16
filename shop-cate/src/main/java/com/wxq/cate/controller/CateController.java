@@ -37,7 +37,7 @@ public class CateController {
 
   @DeleteMapping
   public Object delete(String cateCode){
-    if(cateService.delete(cateCode)){
+    if(cateService.logicDelete(cateCode)){
       return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }else {
       return new ResponseEntity<>(HttpStatus.NOT_FOUND);

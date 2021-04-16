@@ -2,6 +2,7 @@ package com.wxq.cate.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.wxq.bean.Cate;
 import com.wxq.shopinterface.mapper.CateMapper;
 import com.wxq.shopinterface.service.ICateService;
@@ -22,6 +23,7 @@ public class CateServiceImpl implements ICateService {
 
   @Override
   public boolean add(Cate cate) {
+    cate.setIsDelete(0);
     return cateMapper.insert(cate) == 1;
   }
 
@@ -30,6 +32,12 @@ public class CateServiceImpl implements ICateService {
     UpdateWrapper<Cate> wrapper = new UpdateWrapper<>();
     wrapper.set("cate_code", cate.getCateCode());
     return cateMapper.update(cate, wrapper) == 1;
+  }
+
+  @Override
+  public boolean logicDelete(String cateCode) {
+    return cateMapper.updateByCondition("cate", Wrappers.update()
+    .set("is_delete", 0).eq("cateCode", cateCode)) == 1;
   }
 
   @Override
