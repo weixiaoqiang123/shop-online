@@ -43,12 +43,21 @@ public class Sku {
   @ApiModelProperty("选择参数时展示的商品图片的图片路径")
   private String imagePath;
 
+  @TableField("is_delete")
+  @ApiModelProperty("是否删除")
+  private Integer isDelete;
+
   @TableField(exist = false)
   @ApiModelProperty("减少库存操作使用该字段")
   private AtomicInteger realStore;
 
   @TableField(exist = false)
+  @ApiModelProperty("新增sku时直接传入该属性")
   private Spu spu;
+
+  @TableField(exist = false)
+  @ApiModelProperty("前端传入sku的价格")
+  private String fontPrice;
 
   @TableField(exist = false)
   @ApiModelProperty("sku拥有的属性和属性值")
@@ -102,6 +111,14 @@ public class Sku {
     this.imagePath = imagePath;
   }
 
+  public Integer getIsDelete() {
+    return isDelete;
+  }
+
+  public void setIsDelete(Integer isDelete) {
+    this.isDelete = isDelete;
+  }
+
   public AtomicInteger getRealStore() {
     return new AtomicInteger(this.store);
   }
@@ -116,5 +133,21 @@ public class Sku {
 
   public void setSpu(Spu spu) {
     this.spu = spu;
+  }
+
+  public String getFontPrice() {
+    return fontPrice;
+  }
+
+  public void setFontPrice(String fontPrice) {
+    this.fontPrice = fontPrice;
+  }
+
+  public List<SkuAttrValue> getSkuAttrValueList() {
+    return skuAttrValueList;
+  }
+
+  public void setSkuAttrValueList(List<SkuAttrValue> skuAttrValueList) {
+    this.skuAttrValueList = skuAttrValueList;
   }
 }
