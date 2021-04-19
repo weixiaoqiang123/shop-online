@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wxq.shopinterface.mapper.UserAddressMapper">
+
+    <resultMap id="baseMap" type="com.wxq.bean.UserAddress">
+        <id column="id" property="id"/>
+        <result column="account" property="account"/>
+        <result column="receive_name" property="receiveName"/>
+        <result column="phone" property="phone"/>
+        <result column="province_id" property="provinceId"/>
+        <result column="city_id" property="cityId"/>
+        <result column="county_id" property="countyId"/>
+        <result column="town_id" property="townId"/>
+        <result column="addresss" property="address"/>
+        <result column="tag_code" property="tagCode"/>
+    </resultMap>
+
+    
+</mapper>
