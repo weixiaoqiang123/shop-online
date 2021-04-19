@@ -171,7 +171,8 @@ create table sku(
     sku_code varchar(32),
     spu_code varchar(32),
     store int,
-    image_path varchar(50)
+    image_path varchar(50),
+    is_delete int
 )character set utf8 collate utf8_general_ci;
 
 -- sku属性、属性值关系表
