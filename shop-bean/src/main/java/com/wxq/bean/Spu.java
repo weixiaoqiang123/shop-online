@@ -77,4 +77,8 @@ public class Spu {
   @TableField(exist = false)
   @ApiModelProperty("新增商品的属性id集合")
   private List<Integer> attrIdList;
+
+  @TableField(exist = false)
+  @ApiModelProperty("商品轮播图图片路径")
+  private List<String> imageList;
 }
