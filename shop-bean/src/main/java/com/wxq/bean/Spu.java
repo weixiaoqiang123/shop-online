@@ -70,4 +70,11 @@ public class Spu {
   @TableField(exist = false)
   @ApiModelProperty("spu拥有的属性")
   private List<SpuAttr> spuAttrList;
+
+  @TableField(exist = false)
+  private SpuDetail spuDetail;
+
+  @TableField(exist = false)
+  @ApiModelProperty("新增商品的属性id集合")
+  private List<Integer> attrIdList;
 }
