@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wxq.shopinterface.mapper.AttrMapper">
+
+    <resultMap id="baseMap" type="com.wxq.bean.Attr">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="is_delete" property="isDelete"/>
+        <collection property="attrValueList" column="id" javaType="com.wxq.bean.AttrValue"
+                    select="com.wxq.shopinterface.mapper.AttrValueMapper.findList"/>
+    </resultMap>
+
+    <resultMap id="baseMap2" type="com.wxq.bean.Attr">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="is_delete" property="isDelete"/>
+    </resultMap>
+
+    <select id="findList" parameterType="int" resultMap="baseMap">
+        select id,name,is_delete from attr where id=#{id}
+    </select>
+
+    <select id="findById" parameterType="int" resultMap="baseMap2">
+        select id,name,is_delete from attr where id=#{id}
+    </select>
+</mapper>
