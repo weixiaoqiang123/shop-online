@@ -1,6 +1,6 @@
 package com.wxq.goods.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.wxq.bean.Attr;
 import com.wxq.shopinterface.mapper.AttrMapper;
 import com.wxq.shopinterface.service.IAttrService;
@@ -26,6 +26,7 @@ public class AttrServiceImpl implements IAttrService {
 
   @Override
   public boolean delete(Integer id) {
-    return attrMapper.deleteById(id) == 1;
+    return attrMapper.updateByCondition("attr", Wrappers.update()
+    .set("is_delete", 1).eq("id", id)) == 1;
   }
 }
