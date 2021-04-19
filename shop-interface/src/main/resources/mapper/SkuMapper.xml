@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wxq.shopinterface.mapper.SkuMapper">
+
+    <resultMap id="baseMap" type="com.wxq.bean.Sku">
+        <id column="id" property="id"/>
+        <result column="price" property="price"/>
+        <result column="sku_code" property="skuCode"/>
+        <result column="spu_code" property="spuCode"/>
+        <result column="store" property="store"/>
+        <result column="image_path" property="imagePath"/>
+        <result column="sku_code" property="skuCode"/>
+        <result column="is_delete" property="isDelete"/>
+        <collection property="skuAttrValueList" column="sku_code" javaType="com.wxq.bean.SkuAttrValue"
+                    select="com.wxq.shopinterface.mapper.SkuAttrValueMapper.findList"/>
+    </resultMap>
+
+    <select id="total" parameterType="string" resultType="long">
+        select count(id) from sku where spu_code=#{id}
+    </select>
+</mapper>
