@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wxq.shopinterface.mapper.BusinessMapper">
+
+    <resultMap id="baseMap" type="com.wxq.bean.Business">
+        <id column="id" property="id"/>
+        <result column="businessName" property="businessName"/>
+        <result column="businessCode" property="businessCode"/>
+        <result column="account" property="account"/>
+        <result column="address" property="address"/>
+        <result column="is_delete" property="isDelete"/>
+        <collection property="businessCateList" column="businessCode" javaType="com.wxq.bean.BusinessCate"
+                    select="com.wxq.shopinterface.mapper.BusinessCateMapper.findList"/>
+    </resultMap>
+
+    <select id="total" resultType="long">
+        select count(id) from business
+    </select>
+
+    <select id="findByPage" resultMap="baseMap">
+        select
+        id,
+        business_name,
+        business_code,
+        account,
+        address,
+        is_delete
+        from business
+        where is_delete=0
+        <if test="params.businessName != null and params.businessName != ''">
+            and business_name like concat('%', #{params.businessName}, '%')
+        </if>
+        limie #{begin}, #{end}
+    </select>
+</mapper>
