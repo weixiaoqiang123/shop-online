@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wxq.shopinterface.mapper.SkuAttrValueMapper">
+
+    <resultMap id="baseMap" type="com.wxq.bean.SkuAttrValue">
+        <id column="id" property="id"/>
+        <result column="sku_code" property="skuCode"/>
+        <result column="attr_id" property="attrId"/>
+        <result column="value_id" property="valueId"/>
+        <association property="attr" column="attr_id" javaType="com.wxq.bean.Attr"
+                     select="com.wxq.shopinterface.mapper.AttrMapper.findById"/>
+        <association property="attrValue" column="value_id" javaType="com.wxq.bean.AttrValue"
+                     select="com.wxq.shopinterface.mapper.AttrValueMapper.findById"/>
+    </resultMap>
+
+    <select id="total">
+        selct count(id) from sku_attr_value
+    </select>
+
+    <select id="findList" parameterType="string" resultMap="baseMap">
+        select id,sku_code,attr_id,value_id from sku_attr_value where sku_code=#{id}
+    </select>
+
+    <delete id="deleteBatch" parameterType="string">
+        delete from sku_attr_value where sku_code=#{id}
+    </delete>
+</mapper>

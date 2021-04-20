@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wxq.shopinterface.mapper.SpuDetailMapper">
+
+    <resultMap id="baseMap" type="com.wxq.bean.SpuDetail">
+        <id column="id" property="id"/>
+        <result column="spu_code" property="spuCode"/>
+        <result column="info" property="info"/>
+    </resultMap>
+
+    <delete id="delete" parameterType="string">
+        delete from spu_detail where spu_code=#{id}
+    </delete>
+</mapper>

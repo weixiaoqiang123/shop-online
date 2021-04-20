@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wxq.shopinterface.mapper.SpuImagesMapper">
+
+    <resultMap id="baseMap" type="com.wxq.bean.SpuImages">
+        <id column="id" property="id"/>
+        <result column="spu_code" property="spuCode"/>
+        <result column="image_path" property="imagePath"/>
+    </resultMap>
+
+    <!-- 统计指定spuCode的图片个数 -->
+    <select id="total" parameterType="string">
+        select count(id) from spu_images where spu_code=#{id}
+    </select>
+
+    <!-- 根据spuCode批量删除图片   -->
+    <delete id="deleteBatch" parameterType="string">
+        delete from spu_images where spu_code=#{id}
+    </delete>
+</mapper>
