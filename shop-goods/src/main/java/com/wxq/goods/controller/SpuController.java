@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
  * 添加spu流程
  * => 新增商品基本信息(商品名称、商品描述、原价、优惠价、分类、封面图片)
  * => 新增商品详细信息(在spu_detail表中新增信息)
+ * => 新增商品轮播图
  * => 新增商品属性和属性值
  *
  * spu只能添加和删除，无法修改属性和属性值

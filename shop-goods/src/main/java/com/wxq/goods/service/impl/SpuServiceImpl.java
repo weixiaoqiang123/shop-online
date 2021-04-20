@@ -43,6 +43,9 @@ public class SpuServiceImpl implements ISpuService {
   private SpuAttrMapper spuAttrMapper;
 
   @Autowired
+  private SpuImagesMapper spuImagesMapper;
+
+  @Autowired
   private AttrMapper attrMapper;
 
   @Autowired
@@ -73,16 +76,9 @@ public class SpuServiceImpl implements ISpuService {
       logger.error("商品详细信息新增失败");
       throw new RuntimeException();
     }
-    List<Integer> attrIdList = spu.getAttrIdList();
-    SpuAttr spuAttr = new SpuAttr();
-    spuAttr.setSpuCode(spu.getSpuCode());
-    for(int attrId : attrIdList){
-      spuAttr.setAttrId(attrId);
-      if(spuAttrMapper.insert(spuAttr) != 1){
-        logger.error("商品属性关系新增失败");
-        throw new RuntimeException();
-      }
-    }
+    // 新增商品轮播图
+    addSpuImages(spu, spuCode);
+    processSpuAttr(spu);
   }
 
   /**
@@ -114,22 +110,22 @@ public class SpuServiceImpl implements ISpuService {
       logger.error("商品详细信息修改失败");
       throw new RuntimeException();
     }
+    // 查询该商品的轮播图图片个数
+    long total = spuImagesMapper.total(spuCode);
+    // 删除商品轮播图
+    if(spuImagesMapper.deleteBatch(spuCode) != Integer.parseInt(total+"")){
+      logger.error("删除商品轮播图失败");
+      throw new RuntimeException();
+    }
+    // 新增商品轮播图
+    addSpuImages(spu, spuCode);
     // 查询总记录数
     int count = spuAttrMapper.count(spuCode);
     if(spuAttrMapper.deleteBatch(spuCode) == count){
       logger.error("删除商品属性关系失败");
       throw new RuntimeException();
     }
-    List<Integer> attrIdList = spu.getAttrIdList();
-    SpuAttr spuAttr = new SpuAttr();
-    spuAttr.setSpuCode(spuCode);
-    for(int attrId : attrIdList){
-      spuAttr.setAttrId(attrId);
-      if(spuAttrMapper.insert(spuAttr) != 1){
-        logger.error("新增商品属性关系失败");
-        throw new RuntimeException();
-      }
-    }
+    processSpuAttr(spu);
   }
 
   /**
@@ -204,5 +200,31 @@ public class SpuServiceImpl implements ISpuService {
   public boolean updateSpuStatus(String spuCode, Integer status) {
     return spuMapper.updateByCondition("spu", Wrappers.update()
     .set("status", status).eq("spu_code", spuCode)) == 1;
+  }
+
+  private void addSpuImages(Spu spu, String spuCode) {
+    List<String> imageList = spu.getImageList();
+    SpuImages spuImages = new SpuImages();
+    spuImages.setSpuCode(spuCode);
+    for(String path : imageList){
+      spuImages.setImagePath(path);
+      if(spuImagesMapper.insert(spuImages) != 1){
+        logger.error("商品轮播图新增失败");
+        throw new RuntimeException();
+      }
+    }
+  }
+
+  private void processSpuAttr(Spu spu) {
+    List<Integer> attrIdList = spu.getAttrIdList();
+    SpuAttr spuAttr = new SpuAttr();
+    spuAttr.setSpuCode(spu.getSpuCode());
+    for(int attrId : attrIdList){
+      spuAttr.setAttrId(attrId);
+      if(spuAttrMapper.insert(spuAttr) != 1){
+        logger.error("商品属性关系新增失败");
+        throw new RuntimeException();
+      }
+    }
   }
 }
