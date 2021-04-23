@@ -124,6 +124,7 @@ create table spu(
     sale_price decimal(8,2),
     sale_num int,
     cate_code varchar(32),
+    business_code varchar(32),
     business_cate_code varchar(32),
     image_path varchar(100)
 )character set utf8 collate utf8_general_ci;
@@ -202,6 +203,7 @@ create table banner(
 -- 购物车
 create table shop_cart(
     id int primary key AUTO_INCREMENT,
+    account varchar(20),
     spu_name varchar(50),
     spu_introduction varchar(1000),
     sku_code varchar(32),
