@@ -3,17 +3,19 @@ package com.wxq.cate.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.wxq.bean.Cate;
 import com.wxq.shopinterface.mapper.CateMapper;
 import com.wxq.shopinterface.service.ICateService;
 import com.wxq.util.common.BaseTree;
-import com.wxq.util.common.Page;
+import com.wxq.util.common.StringUtil;
 import com.wxq.util.common.TreeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class CateServiceImpl implements ICateService {
@@ -23,21 +25,23 @@ public class CateServiceImpl implements ICateService {
 
   @Override
   public boolean add(Cate cate) {
+    // 生成分类编码
+    String cateCode = StringUtil.getCode();
+    cate.setCateCode(cateCode);
     cate.setIsDelete(0);
     return cateMapper.insert(cate) == 1;
   }
 
   @Override
   public boolean update(Cate cate) {
-    UpdateWrapper<Cate> wrapper = new UpdateWrapper<>();
-    wrapper.set("cate_code", cate.getCateCode());
-    return cateMapper.update(cate, wrapper) == 1;
+    return cateMapper.updateByCondition("cate",
+    Wrappers.update().set("cate_name", cate.getCateName()).eq("cate_code", cate.getCateCode())) == 1;
   }
 
   @Override
   public boolean logicDelete(String cateCode) {
     return cateMapper.updateByCondition("cate", Wrappers.update()
-    .set("is_delete", 0).eq("cateCode", cateCode)) == 1;
+    .set("is_delete", 1).eq("cate_code", cateCode)) == 1;
   }
 
   @Override
@@ -67,5 +71,11 @@ public class CateServiceImpl implements ICateService {
   @Override
   public Page<Cate> findByPage(Map<String, String> cate, Integer currentPage, Integer lineSize) {
     return null;
+  }
+
+  @Override
+  public List<BaseTree> findThirdCate(Integer targetDeep) {
+    List<BaseTree> treeList = this.findAll();
+    return treeList.stream().filter(tree -> tree.getDeep().equals(targetDeep)).collect(Collectors.toList());
   }
 }

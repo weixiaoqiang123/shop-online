@@ -9,34 +9,31 @@
         <result column="spu_name" property="spuName"/>
         <result column="spu_code" property="spuCode"/>
         <result column="spu_introduction" property="spuIntroduction"/>
-        <result column="original_price" property="originalPrice"/>
         <result column="sale_price" property="salePrice"/>
         <result column="sale_num" property="saleNum"/>
         <result column="cate_code" property="cateCode"/>
+        <result column="business_code" property="businessCateCode"/>
         <result column="business_cate_code" property="businessCateCode"/>
         <result column="image_path" property="imagePath"/>
+        <association property="business" column="business_code" javaType="com.wxq.bean.Business"
+                     select="com.wxq.shopinterface.mapper.BusinessMapper.findById"/>
         <collection property="spuAttrList" column="spu_code" javaType="com.wxq.bean.SpuAttr"
                     select="com.wxq.shopinterface.mapper.SpuAttrMapper.findList"/>
     </resultMap>
 
-    <select id="findByPage" resultMap="baseMap">
+    <select id="findByPage" parameterType="map" resultMap="baseMap">
         select
-        id,
-        spu_name,
-        spu_code,
-        spu_introduction,
-        original_price,
-        sale_price,
-        sale_num,
-        cate_code,
-        business_cate_code,
-        image_path
-        from spu
-        where business_code=#{params.businessCode}
-        <if test="params.businessCateCode != null and params.businessCateCode != ''">
-            and business_cate_code=#{params.businessCateCode}
-        </if>
-        limit #{begin}, #{end}
+        s.id,
+        s.spu_name,
+        s.spu_code,
+        s.spu_introduction,
+        s.sale_price,
+        s.sale_num,
+        s.cate_code,
+        s.business_cate_code,
+        s.image_path,
+        d.info
+        from spu s
     </select>
 
     <select id="findList" parameterType="string" resultMap="baseMap">

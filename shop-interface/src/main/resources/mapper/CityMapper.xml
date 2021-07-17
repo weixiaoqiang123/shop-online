@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wxq.shopinterface.mapper.CityMapper">
+
+    <resultMap id="baseMap" type="com.wxq.bean.City">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="province_id" property="provinceId"/>
+        <collection property="countyList" column="id" javaType="com.wxq.bean.County"
+                    select="com.wxq.shopinterface.mapper.CountyMapper.findList"/>
+    </resultMap>
+
+    <select id="findList" parameterType="int" resultMap="baseMap">
+        select id,name,province_id from city where province_id=#{id}
+    </select>
+</mapper>

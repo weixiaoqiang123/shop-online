@@ -34,4 +34,16 @@
         </if>
         limie #{begin}, #{end}
     </select>
+
+    <select id="findById" parameterType="string" resultMap="baseMap">
+        select
+        id,
+        business_name,
+        business_code,
+        account,
+        address,
+        is_delete
+        from business
+        where business_code=#{id}
+    </select>
 </mapper>

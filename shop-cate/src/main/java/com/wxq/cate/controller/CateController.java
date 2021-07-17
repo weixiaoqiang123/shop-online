@@ -35,8 +35,8 @@ public class CateController {
     }
   }
 
-  @DeleteMapping
-  public Object delete(String cateCode){
+  @DeleteMapping("/{id}")
+  public Object delete(@PathVariable("id") String cateCode){
     if(cateService.logicDelete(cateCode)){
       return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }else {
@@ -54,5 +54,16 @@ public class CateController {
   public Object listCate(){
     List<BaseTree> cateTree = cateService.findAll();
     return new ResponseEntity<>(cateTree, HttpStatus.OK);
+  }
+
+  /**
+   * 查询最后一级分类
+   * @targetDeep 目标深度，根据前端确定的深度指定
+   * @return
+   */
+  @GetMapping("/findLastCate")
+  public Object findLastCate(@RequestParam Integer targetDeep){
+    List<BaseTree> cateList = cateService.findThirdCate(targetDeep);
+    return new ResponseEntity<>(cateList, HttpStatus.OK);
   }
 }

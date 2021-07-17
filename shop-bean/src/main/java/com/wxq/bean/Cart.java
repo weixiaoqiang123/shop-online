@@ -24,6 +24,10 @@ public class Cart {
   @TableId(value = "id",type = IdType.AUTO)
   private Integer id;
 
+  @TableField("account")
+  @ApiModelProperty("购买人账号")
+  private String account;
+
   @TableField("spu_name")
   @ApiModelProperty("spu名称")
   private String spuName;
@@ -51,6 +55,10 @@ public class Cart {
   @TableField("business_code")
   @ApiModelProperty("商家编码")
   private String businessCode;
+
+  @ApiModelProperty("将sku的图片路径作为该图片路径")
+  @TableField("image_path")
+  private String imagePath;
 
   @TableField("create_time")
   @ApiModelProperty("添加到购物车时间")

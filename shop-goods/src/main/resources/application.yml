@@ -12,7 +12,7 @@ qiniu:
   accessKey: psM0ckGREV6Qh-a0xKprtuPwJRk5mzLEtoT11jbw
   secretKey: IJ7o66mVQfCHuxRtoIs82nK1egLuXR9BrMsJy4D_
   bucketName: shop-wxq
-  qiniuImageDomain: http://qqxfi6w7x.hn-bkt.clouddn.com/
+  qiniuImageDomain: http://qtd0yoo30.hn-bkt.clouddn.com/
 
 spring:
   profiles:

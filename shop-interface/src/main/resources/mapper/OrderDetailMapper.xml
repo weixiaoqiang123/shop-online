@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wxq.shopinterface.mapper.OrderDetailMapper">
+
+    <resultMap id="baseMap" type="com.wxq.bean.OrderDetail">
+        <id column="id" property="id"/>
+        <result column="order_code" property="orderCode"/>
+        <result column="sku_code" property="skuCode"/>
+        <result column="shop_num" property="shopNum"/>
+        <result column="sku_amount" property="skuAmount"/>
+    </resultMap>
+
+    <select id="findList" parameterType="string" resultMap="baseMap">
+        select id,order_code,sku_code,shop_num,sku_amount from order_detail where order_code=#{id}
+    </select>
+</mapper>

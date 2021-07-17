@@ -1,8 +1,8 @@
 package com.wxq.shopinterface.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.wxq.bean.Cate;
 import com.wxq.util.common.BaseTree;
-import com.wxq.util.common.Page;
 
 import java.util.List;
 import java.util.Map;
@@ -22,4 +22,6 @@ public interface ICateService {
   List<BaseTree> findAll();
 
   Page<Cate> findByPage(Map<String, String> cate, Integer currentPage, Integer lineSize);
+
+  List<BaseTree> findThirdCate(Integer targetDeep);
 }

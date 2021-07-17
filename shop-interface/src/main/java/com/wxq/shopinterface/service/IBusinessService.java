@@ -1,7 +1,7 @@
 package com.wxq.shopinterface.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.wxq.bean.Business;
-import com.wxq.util.common.Page;
 
 import java.util.Map;
 
@@ -18,4 +18,6 @@ public interface IBusinessService {
   Page<Business> findByPage(Map<String, String> business, Integer currentPage, Integer lineSize);
 
   Business get(String businessCode);
+
+  Business findBusinessByAccount(String account);
 }

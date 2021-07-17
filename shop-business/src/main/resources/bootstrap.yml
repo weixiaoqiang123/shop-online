@@ -14,3 +14,4 @@ spring:
         # 共享配置文件
         shared-dataids: mysql-redis-dev.yaml
         # refreshable-dataids=xxx.yaml
+ribbon:

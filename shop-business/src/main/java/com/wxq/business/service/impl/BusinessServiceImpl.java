@@ -3,11 +3,11 @@ package com.wxq.business.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.wxq.bean.Business;
 import com.wxq.shopinterface.mapper.BusinessMapper;
 import com.wxq.shopinterface.service.IBusinessService;
-import com.wxq.util.common.Page;
-import com.wxq.util.common.PageQuery;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -47,13 +47,27 @@ public class BusinessServiceImpl implements IBusinessService {
 
   @Override
   public Page<Business> findByPage(Map<String, String> business, Integer currentPage, Integer lineSize) {
-    return PageQuery.query(businessMapper, currentPage, lineSize, business);
+    String businessName = business.get("businessName");
+    QueryWrapper<Business> wrapper = new QueryWrapper<>();
+    wrapper.eq("is_delete", 0);
+    if(StringUtils.isNotEmpty(businessName)){
+      wrapper.like("business_name", businessName);
+    }
+    // TODO
+    return null;
   }
 
   @Override
   public Business get(String businessCode) {
     QueryWrapper<Business> wrapper = new QueryWrapper<>();
     wrapper.eq("business_code", businessCode);
+    return businessMapper.selectOne(wrapper);
+  }
+
+  @Override
+  public Business findBusinessByAccount(String account) {
+    QueryWrapper<Business> wrapper = new QueryWrapper<>();
+    wrapper.eq("account", account);
     return businessMapper.selectOne(wrapper);
   }
 }

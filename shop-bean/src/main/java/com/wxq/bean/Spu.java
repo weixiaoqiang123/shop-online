@@ -31,6 +31,10 @@ public class Spu {
   @ApiModelProperty("spu编码")
   private String spuCode;
 
+  @TableField("spu_status")
+  @ApiModelProperty("商品状态: 0 未发布 1 上架 2 下架")
+  private Integer status;
+
   @TableField("spu_introduction")
   @ApiModelProperty("商品描述")
   private String spuIntroduction;
@@ -50,6 +54,10 @@ public class Spu {
   @TableField("cate_code")
   @ApiModelProperty("分类编码")
   private String cateCode;
+
+  @TableField("business_code")
+  @ApiModelProperty("商家编码")
+  private String businessCode;
 
   @TableField("business_cate_code")
   @ApiModelProperty("商家分类编码")
@@ -73,6 +81,10 @@ public class Spu {
 
   @TableField(exist = false)
   private SpuDetail spuDetail;
+
+  @TableField(exist = false)
+  @ApiModelProperty("spu所属商家")
+  private Business business;
 
   @TableField(exist = false)
   @ApiModelProperty("新增商品的属性id集合")

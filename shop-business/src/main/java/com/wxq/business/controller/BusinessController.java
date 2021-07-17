@@ -1,8 +1,8 @@
 package com.wxq.business.controller;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.wxq.bean.Business;
 import com.wxq.shopinterface.service.IBusinessService;
-import com.wxq.util.common.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -48,6 +48,11 @@ public class BusinessController {
   public Object get(@PathVariable("id") String businessCode){
     Business business = businessService.get(businessCode);
     return new ResponseEntity<>(business, HttpStatus.OK);
+  }
+
+  @GetMapping("/findBusinessByAccount")
+  public Business findBusinessByAccount(@RequestParam String account){
+    return businessService.findBusinessByAccount(account);
   }
 
   @GetMapping

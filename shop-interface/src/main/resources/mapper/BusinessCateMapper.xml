@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wxq.shopinterface.mapper.BusinessCateMapper">
+
+    <resultMap id="baseMap" type="com.wxq.bean.BusinessCate">
+        <id column="id" property="id"/>
+        <result column="business_code" property="businessCode"/>
+        <result column="cate_name" property="cateName"/>
+        <result column="cate_code" property="cateCode"/>
+        <collection property="spuList" column="cate_code" javaType="com.wxq.bean.Spu"
+                    select="com.wxq.shopinterface.mapper.SpuMapper.findList"/>
+    </resultMap>
+
+    <select id="findList" parameterType="string" resultMap="baseMap">
+        select id,business_code,cate_name,cate_code from busines_cate where business_code=#{id}
+    </select>
+</mapper>

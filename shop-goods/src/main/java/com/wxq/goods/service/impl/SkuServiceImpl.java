@@ -56,24 +56,24 @@ public class SkuServiceImpl implements ISkuService {
 
   @Override
   public void update(Sku sku) {
-    String skuCode = sku.getSkuCode();
-    String fontPrice = sku.getFontPrice();
-    sku.setPrice(new BigDecimal(fontPrice));
-    UpdateWrapper<Sku> skuWrapper = new UpdateWrapper<>();
-    skuWrapper.eq("sku_code", skuCode);
-    if(skuMapper.update(sku, skuWrapper) != 1){
-      logger.error("修改sku失败");
-      throw new RuntimeException();
-    }
-    // 查询记录条数
-    long total = skuAttrValueMapper.total();
-    // 根据skuCode删除所有关系
-    if(skuAttrValueMapper.deleteBatch(skuCode) != Integer.parseInt(total+"")){
-      logger.error("删除sku关系失败");
-      throw new RuntimeException();
-    }
-    // 新增关系
-    processSkuAttrValue(sku.getSpu(), skuCode);
+//    String skuCode = sku.getSkuCode();
+//    String fontPrice = sku.getFontPrice();
+//    sku.setPrice(new BigDecimal(fontPrice));
+//    UpdateWrapper<Sku> skuWrapper = new UpdateWrapper<>();
+//    skuWrapper.eq("sku_code", skuCode);
+//    if(skuMapper.update(sku, skuWrapper) != 1){
+//      logger.error("修改sku失败");
+//      throw new RuntimeException();
+//    }
+//    // 查询记录条数
+//    long total = skuAttrValueMapper.total();
+//    // 根据skuCode删除所有关系
+//    if(skuAttrValueMapper.deleteBatch(skuCode) != Integer.parseInt(total+"")){
+//      logger.error("删除sku关系失败");
+//      throw new RuntimeException();
+//    }
+//    // 新增关系
+//    processSkuAttrValue(sku.getSpu(), skuCode);
   }
 
   @Override

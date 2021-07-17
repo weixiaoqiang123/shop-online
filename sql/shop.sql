@@ -211,6 +211,7 @@ create table shop_cart(
     shop_num int,
     business_name varchar(50),
     business_code varchar(32),
+    image_path varchar(50),
     create_time datetime
 )character set utf8 collate utf8_general_ci;
 

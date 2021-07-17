@@ -18,7 +18,7 @@
         <module>shop-cate</module>
         <module>shop-business</module>
         <module>shop-goods</module>
-      <module>payment</module>
+        <module>payment</module>
         <module>shop-cart</module>
         <module>search</module>
         <module>shop-order</module>
