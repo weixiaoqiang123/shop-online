@@ -1,7 +1,7 @@
 package com.wxq.shopinterface.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.wxq.bean.User;
-import com.wxq.util.common.Page;
 import com.wxq.util.common.ResponseVo;
 
 import java.util.Map;

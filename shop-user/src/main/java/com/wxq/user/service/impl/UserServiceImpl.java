@@ -4,10 +4,14 @@ import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.wxq.bean.Business;
 import com.wxq.bean.User;
 import com.wxq.shopinterface.mapper.UserMapper;
+import com.wxq.shopinterface.rpc.BusinessService;
 import com.wxq.shopinterface.service.IUserService;
 import com.wxq.util.common.*;
+import jdk.nashorn.internal.ir.annotations.Reference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import redis.clients.jedis.Jedis;
@@ -23,12 +27,14 @@ public class UserServiceImpl implements IUserService {
   @Autowired
   private RedisUtil redisUtil;
 
+  @Autowired
+  private BusinessService bussinessService;
+
   @Override
   public ResponseVo<User> login(User user) {
     ResponseVo<User> responseVo = new ResponseVo<>(false, ErrorCode.FAIL, "登录失败");
     QueryWrapper<User> wrapper = new QueryWrapper<>();
     wrapper.eq("account", user.getAccount());
-    wrapper.eq("role", user.getRole());
     wrapper.eq("is_delete", 0);
     User userByDb = userMapper.selectOne(wrapper);
     if(userByDb == null){
@@ -36,11 +42,16 @@ public class UserServiceImpl implements IUserService {
     }else {
       String password = userByDb.getPassword();
       if(user.getPassword().equals(password)){
+        // 如果是商家查询商家信息
+        if(userByDb.getRole() == 1){
+          Business business = bussinessService.findBusinessByAccount(user.getAccount());
+          userByDb.setBusiness(business);
+        }
         responseVo.setInstance(true, ErrorCode.SUCCESS, "登录成功", userByDb);
         // 获取jedis
         Jedis jedis = redisUtil.getJedis();
         // 放入redis ,必须起key=user:userId:info
-        String userKey = ConstUtil.getKey(user.getAccount(), user.getRole());
+        String userKey = ConstUtil.getKey(user.getAccount(), userByDb.getRole());
         // 保存数据
         jedis.setex(userKey, ConstUtil.KEY_TIME_OUT, JSON.toJSONString(userByDb));
         // 关闭资源
@@ -144,13 +155,21 @@ public class UserServiceImpl implements IUserService {
 
   @Override
   public Page<User> findByPage(Map<String, String> user, Integer currentPage, Integer lineSize) {
-    return PageQuery.query(userMapper, currentPage, lineSize, user);
+    QueryWrapper<User> wrapper = new QueryWrapper<>();
+    wrapper.eq("role", user.get("role"));
+    wrapper.like("nickname", user.get("nickname"));
+    wrapper.like("name", user.get("name"));
+//    String method = user.get("method");
+//    if(!method.isEmpty()){
+//      wrapper.eq("method", method);
+//    }
+    return PageUtil.getData(userMapper, wrapper, currentPage, lineSize);
   }
 
   @Override
   public boolean checkLogin(String account, Integer role) {
     Jedis jedis = redisUtil.getJedis();
     String userJson = jedis.get(ConstUtil.getKey(account, role));
-    return userJson == null;
+    return userJson != null;
   }
 }

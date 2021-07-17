@@ -62,4 +62,7 @@ public class User {
   @TableField(exist = false)
   @ApiModelProperty("前端传入的余额")
   private String fontBalance;
+
+  @TableField(exist = false)
+  private Business business;
 }

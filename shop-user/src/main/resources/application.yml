@@ -6,7 +6,13 @@ spring:
     active: dev
   # 表示使用开发环境配置文件 表示去nacos上找xxxx-dev.yml的配置文件
     # active: dev
-
+  # 登录信息保存时间 单位s
+#  session:
+#    timeout: 10
+#  mvc:
+#    view:
+#      prefix : /WEB-INF/views/
+#      suffix: .vue
 # bus
 management:
   endpoints:

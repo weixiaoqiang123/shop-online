@@ -7,7 +7,7 @@ spring:
       discovery:
         server-addr: localhost:8848
       # 配置中心
-      config:
+      config:a
         server-addr: localhost:8848
         # 指定配置中心文件格式为yaml
         file-extension: yaml

@@ -1,14 +1,13 @@
 package com.wxq.user.controller;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.wxq.bean.User;
 import com.wxq.shopinterface.service.IUserService;
-import com.wxq.util.common.Page;
 import com.wxq.util.common.ResponseVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.Map;
 
 @RestController
@@ -18,7 +17,7 @@ public class UserController {
   @Autowired
   private IUserService userService;
 
-  @PostMapping("/user")
+  @PostMapping("/login")
   public ResponseVo<User> login(@RequestBody User user){
     return userService.login(user);
   }
@@ -57,7 +56,7 @@ public class UserController {
   }
 
   @GetMapping("/findByPage")
-  public Page<User> findByPage(@RequestParam(required = false) Map<String, String> user,
+  public Page<User> findByPage(@RequestParam Map<String, String> user,
                                @RequestParam("currentPage") Integer currentPage,
                                @RequestParam("lineSize") Integer lineSize){
     Page<User> page = userService.findByPage(user, currentPage, lineSize);
